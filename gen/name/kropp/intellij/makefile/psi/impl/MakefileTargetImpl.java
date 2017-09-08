@@ -5,9 +5,11 @@ import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.stubs.IStubElementType;
 import name.kropp.intellij.makefile.psi.MakefilePsiImplUtil;
 import name.kropp.intellij.makefile.psi.MakefileTarget;
 import name.kropp.intellij.makefile.psi.MakefileVisitor;
+import name.kropp.intellij.makefile.stub.MakefileTargetStubElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +17,10 @@ public class MakefileTargetImpl extends MakefileNamedElementImpl implements Make
 
   public MakefileTargetImpl(ASTNode node) {
     super(node);
+  }
+
+  public MakefileTargetImpl(MakefileTargetStubElement stub, IStubElementType type) {
+    super(stub, type);
   }
 
   public void accept(@NotNull MakefileVisitor visitor) {

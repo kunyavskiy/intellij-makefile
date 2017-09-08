@@ -4,6 +4,7 @@ package name.kropp.intellij.makefile.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
 import name.kropp.intellij.makefile.psi.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,13 +28,13 @@ public class MakefileRuleImpl extends ASTWrapperPsiElement implements MakefileRu
   @Override
   @NotNull
   public MakefileRecipe getRecipe() {
-    return findNotNullChildByClass(MakefileRecipe.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, MakefileRecipe.class));
   }
 
   @Override
   @NotNull
   public MakefileTargetLine getTargetLine() {
-    return findNotNullChildByClass(MakefileTargetLine.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, MakefileTargetLine.class));
   }
 
   public List<MakefileTarget> getTargets() {

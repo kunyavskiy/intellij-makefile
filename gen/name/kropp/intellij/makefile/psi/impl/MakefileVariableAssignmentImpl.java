@@ -5,6 +5,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
 import name.kropp.intellij.makefile.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,19 +28,19 @@ public class MakefileVariableAssignmentImpl extends ASTWrapperPsiElement impleme
   @Override
   @Nullable
   public MakefileFunction getFunction() {
-    return findChildByClass(MakefileFunction.class);
+    return PsiTreeUtil.getChildOfType(this, MakefileFunction.class);
   }
 
   @Override
   @NotNull
   public MakefileVariable getVariable() {
-    return findNotNullChildByClass(MakefileVariable.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, MakefileVariable.class));
   }
 
   @Override
   @Nullable
   public MakefileVariableValue getVariableValue() {
-    return findChildByClass(MakefileVariableValue.class);
+    return PsiTreeUtil.getChildOfType(this, MakefileVariableValue.class);
   }
 
   @Nullable

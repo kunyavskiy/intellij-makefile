@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import name.kropp.intellij.makefile.psi.impl.*;
+import name.kropp.intellij.makefile.stub.MakefileTargetStubElementType;
 
 public interface MakefileTypes {
 
@@ -31,7 +32,7 @@ public interface MakefileTypes {
   IElementType PRIVATEVAR = new MakefileElementType("PRIVATEVAR");
   IElementType RECIPE = new MakefileElementType("RECIPE");
   IElementType RULE = new MakefileElementType("RULE");
-  IElementType TARGET = new MakefileElementType("TARGET");
+  IElementType TARGET = MakefileTargetStubElementType.getInstance("TARGET");
   IElementType TARGETS = new MakefileElementType("TARGETS");
   IElementType TARGET_LINE = new MakefileElementType("TARGET_LINE");
   IElementType TARGET_PATTERN = new MakefileElementType("TARGET_PATTERN");
