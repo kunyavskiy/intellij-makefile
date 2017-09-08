@@ -40,6 +40,7 @@ Bugfix release. The last update to support 2016.3.
     <documentationProvider implementation="name.kropp.intellij.makefile.MakefileDocumentationProvider"/>
 
     <stubElementTypeHolder class="name.kropp.intellij.makefile.psi.MakefileTypes" />
+    <stubIndex implementation="name.kropp.intellij.makefile.MakefileTargetIndex" />
 
     <internalFileTemplate name="Makefile" />
   </extensions>
