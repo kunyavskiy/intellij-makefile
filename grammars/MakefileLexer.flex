@@ -28,7 +28,14 @@ SPACES=" "+
 BACKSLASHCRLF="\\"(\r|\n|\r\n)
 DOCCOMMENT="##"[^\r\n]*
 COMMENT="#"[^\r\n]*
-FUNCTION_NAMES="$("("error"|"warning"|"info"|"shell"|"wildcard"|"pathsubst")
+FUNCTION_NAMES="$("(
+    "subst"|"patsubst"|"strip"|"findstring"|"filter"|"filter-out"|"sort"|
+    "word"|"wordlist"|"words"|"firstword"|"lastword"|"dir"|"notdir"|
+    "suffix"|"basename"|"addsuffix"|"addprefix"|"join"|"wildcard"|
+    "realpath"|"abspath"|"if"|"or"|"and"|"foreach"|"file"|
+    "call"|"value"|"eval"|"origin"|"flavor"|"error"|"warning"|
+    "info"|"shell"
+)
 MACRO="@"[^@ \r\n]+"@"
 VARIABLE_VALUE=[^\r\n]*[^\\\r\n]
 COLON=":"
