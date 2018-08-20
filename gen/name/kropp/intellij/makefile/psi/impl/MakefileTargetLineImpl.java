@@ -13,7 +13,7 @@ import name.kropp.intellij.makefile.psi.*;
 
 public class MakefileTargetLineImpl extends ASTWrapperPsiElement implements MakefileTargetLine {
 
-  public MakefileTargetLineImpl(ASTNode node) {
+  public MakefileTargetLineImpl(@NotNull ASTNode node) {
     super(node);
   }
 

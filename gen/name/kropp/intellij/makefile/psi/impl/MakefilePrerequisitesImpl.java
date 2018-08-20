@@ -13,7 +13,7 @@ import name.kropp.intellij.makefile.psi.*;
 
 public class MakefilePrerequisitesImpl extends ASTWrapperPsiElement implements MakefilePrerequisites {
 
-  public MakefilePrerequisitesImpl(ASTNode node) {
+  public MakefilePrerequisitesImpl(@NotNull ASTNode node) {
     super(node);
   }
 

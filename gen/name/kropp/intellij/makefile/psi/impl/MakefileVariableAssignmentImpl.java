@@ -13,7 +13,7 @@ import name.kropp.intellij.makefile.psi.*;
 
 public class MakefileVariableAssignmentImpl extends ASTWrapperPsiElement implements MakefileVariableAssignment {
 
-  public MakefileVariableAssignmentImpl(ASTNode node) {
+  public MakefileVariableAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 

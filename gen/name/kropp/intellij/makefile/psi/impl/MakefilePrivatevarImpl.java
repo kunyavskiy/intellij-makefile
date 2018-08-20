@@ -13,7 +13,7 @@ import name.kropp.intellij.makefile.psi.*;
 
 public class MakefilePrivatevarImpl extends ASTWrapperPsiElement implements MakefilePrivatevar {
 
-  public MakefilePrivatevarImpl(ASTNode node) {
+  public MakefilePrivatevarImpl(@NotNull ASTNode node) {
     super(node);
   }
 

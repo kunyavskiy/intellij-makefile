@@ -43,8 +43,9 @@ PIPE="|"
 ASSIGN=("="|":="|"::="|"?="|"!="|"+=")
 
 FILENAME_CHARACTER=[^:=!?#\ \r\n\t]
-VARIABLE_USAGE_EXPR="$("[^ )]*")"
+VARIABLE_USAGE_EXPR=("$("[^ )\r\n]*")"|"${"[^ }\r\n]*"}")
 CONDITION_CHARACTER=[^#\r\n]
+DOLLAR_CHARACTER="$$"
 
 %state PREREQUISITES ELSE INCLUDES SOURCE DEFINE DEFINEBODY CONDITIONALS FUNCTION EXPORT EXPORTVAR
 
@@ -62,10 +63,11 @@ CONDITION_CHARACTER=[^#\r\n]
 {PATHSUBST}            { yybegin(FUNCTION); return FUNCTION_PATHSUBST; }
 
 <FUNCTION> {
-  ")"           { yybegin(YYINITIAL); return FUNCTION_END; }
-  [^$)]*        { return FUNCTION_PARAM_TEXT; }
-  {VARIABLE_USAGE_EXPR} { return VARIABLE_USAGE; }
-  {EOL}         { yybegin(YYINITIAL); return EOL; }
+  ")"                       { yybegin(YYINITIAL); return FUNCTION_END; }
+  [^$)]+                    { return FUNCTION_PARAM_TEXT; }
+  {DOLLAR_CHARACTER}        { return FUNCTION_PARAM_TEXT; }
+  {VARIABLE_USAGE_EXPR}     { return VARIABLE_USAGE; }
+  {EOL}                     { yybegin(YYINITIAL); return EOL; }
 }
 
 <YYINITIAL> {

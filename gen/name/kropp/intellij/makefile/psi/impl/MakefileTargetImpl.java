@@ -13,7 +13,7 @@ import com.intellij.navigation.ItemPresentation;
 
 public class MakefileTargetImpl extends MakefileNamedElementImpl implements MakefileTarget {
 
-  public MakefileTargetImpl(ASTNode node) {
+  public MakefileTargetImpl(@NotNull ASTNode node) {
     super(node);
   }
 

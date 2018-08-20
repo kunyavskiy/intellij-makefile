@@ -13,7 +13,7 @@ import name.kropp.intellij.makefile.psi.*;
 
 public class MakefileVpathImpl extends ASTWrapperPsiElement implements MakefileVpath {
 
-  public MakefileVpathImpl(ASTNode node) {
+  public MakefileVpathImpl(@NotNull ASTNode node) {
     super(node);
   }
 
