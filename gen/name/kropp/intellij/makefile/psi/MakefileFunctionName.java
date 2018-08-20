@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MakefileFunction extends PsiElement {
-
-  @NotNull
-  MakefileFunctionName getFunctionName();
-
-  @NotNull
-  List<MakefileFunctionParam> getFunctionParamList();
+public interface MakefileFunctionName extends PsiElement {
 
 }

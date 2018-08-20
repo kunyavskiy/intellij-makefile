@@ -28,12 +28,7 @@ SPACES=" "+
 BACKSLASHCRLF="\\"(\r|\n|\r\n)
 DOCCOMMENT="##"[^\r\n]*
 COMMENT="#"[^\r\n]*
-ERROR="$(error"
-WARNING="$(warning"
-INFO="$(info"
-SHELL="$(shell"
-WILDCARD="$(wildcard"
-PATHSUBST="$(pathsubst"
+FUNCTION_NAMES="$("("error"|"warning"|"info"|"shell"|"wildcard"|"pathsubst")
 MACRO="@"[^@ \r\n]+"@"
 VARIABLE_VALUE=[^\r\n]*[^\\\r\n]
 COLON=":"
@@ -55,12 +50,7 @@ DOLLAR_CHARACTER="$$"
 {COMMENT}              { return COMMENT; }
 ^{MACRO}               { return MACRO; }
 
-{ERROR}                { yybegin(FUNCTION); return FUNCTION_ERROR; }
-{WARNING}              { yybegin(FUNCTION); return FUNCTION_WARNING; }
-{INFO}                 { yybegin(FUNCTION); return FUNCTION_INFO; }
-{SHELL}                { yybegin(FUNCTION); return FUNCTION_SHELL; }
-{WILDCARD}             { yybegin(FUNCTION); return FUNCTION_WILDCARD; }
-{PATHSUBST}            { yybegin(FUNCTION); return FUNCTION_PATHSUBST; }
+{FUNCTION_NAMES}         { yybegin(FUNCTION); return FUNCTION_NAME_TOKEN; }
 
 <FUNCTION> {
   ")"                       { yybegin(YYINITIAL); return FUNCTION_END; }
@@ -93,12 +83,7 @@ DOLLAR_CHARACTER="$$"
     "override"         { return KEYWORD_OVERRIDE; }
     "export"           { yybegin(EXPORT); return KEYWORD_EXPORT; }
     "private"          { return KEYWORD_PRIVATE; }
-    {ERROR}                { yybegin(FUNCTION); return FUNCTION_ERROR; }
-    {WARNING}              { yybegin(FUNCTION); return FUNCTION_WARNING; }
-    {INFO}                 { yybegin(FUNCTION); return FUNCTION_INFO; }
-    {SHELL}                { yybegin(FUNCTION); return FUNCTION_SHELL; }
-    {WILDCARD}             { yybegin(FUNCTION); return FUNCTION_WILDCARD; }
-    {PATHSUBST}            { yybegin(FUNCTION); return FUNCTION_PATHSUBST; }
+    {FUNCTION_NAMES}         { yybegin(FUNCTION); return FUNCTION_NAME_TOKEN; }
     {VARIABLE_USAGE_EXPR}   { return VARIABLE_USAGE; }
     {FILENAME_CHARACTER}+   { return IDENTIFIER; }
 }
@@ -134,12 +119,7 @@ DOLLAR_CHARACTER="$$"
 }
 
 <EXPORT> {
-    {ERROR}                 { yybegin(FUNCTION); return FUNCTION_ERROR; }
-    {WARNING}               { yybegin(FUNCTION); return FUNCTION_WARNING; }
-    {INFO}                  { yybegin(FUNCTION); return FUNCTION_INFO; }
-    {SHELL}                 { yybegin(FUNCTION); return FUNCTION_SHELL; }
-    {WILDCARD}              { yybegin(FUNCTION); return FUNCTION_WILDCARD; }
-    {PATHSUBST}             { yybegin(FUNCTION); return FUNCTION_PATHSUBST; }
+    {FUNCTION_NAMES}        { yybegin(FUNCTION); return FUNCTION_NAME_TOKEN; }
     {VARIABLE_USAGE_EXPR}   { return VARIABLE_USAGE; }
     {FILENAME_CHARACTER}+   { return IDENTIFIER; }
     {ASSIGN}                { yybegin(EXPORTVAR); return ASSIGN; }

@@ -56,6 +56,9 @@ public class MakefileParser implements PsiParser, LightPsiParser {
     else if (t == FUNCTION) {
       r = function(b, 0);
     }
+    else if (t == FUNCTION_NAME) {
+      r = function_name(b, 0);
+    }
     else if (t == INCLUDE) {
       r = include(b, 0);
     }
@@ -459,30 +462,16 @@ public class MakefileParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ('$(error'|'$(warning'|'$(info'|'$(shell'|'$(wildcard'|'$(pathsubst') function-param* ')'
+  // function-name function-param* FUNCTION_END
   public static boolean function(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "function")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, FUNCTION, "<function>");
-    r = function_0(b, l + 1);
-    r = r && function_1(b, l + 1);
-    r = r && consumeToken(b, FUNCTION_END);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // '$(error'|'$(warning'|'$(info'|'$(shell'|'$(wildcard'|'$(pathsubst'
-  private static boolean function_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "function_0")) return false;
+    if (!nextTokenIs(b, FUNCTION_NAME_TOKEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, FUNCTION_ERROR);
-    if (!r) r = consumeToken(b, FUNCTION_WARNING);
-    if (!r) r = consumeToken(b, FUNCTION_INFO);
-    if (!r) r = consumeToken(b, FUNCTION_SHELL);
-    if (!r) r = consumeToken(b, FUNCTION_WILDCARD);
-    if (!r) r = consumeToken(b, FUNCTION_PATHSUBST);
-    exit_section_(b, m, null, r);
+    r = function_name(b, l + 1);
+    r = r && function_1(b, l + 1);
+    r = r && consumeToken(b, FUNCTION_END);
+    exit_section_(b, m, FUNCTION, r);
     return r;
   }
 
@@ -495,6 +484,18 @@ public class MakefileParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "function_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // function-name-token
+  public static boolean function_name(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_name")) return false;
+    if (!nextTokenIs(b, FUNCTION_NAME_TOKEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, FUNCTION_NAME_TOKEN);
+    exit_section_(b, m, FUNCTION_NAME, r);
+    return r;
   }
 
   /* ********************************************************** */

@@ -19,6 +19,7 @@ public interface MakefileTypes {
   IElementType EXPORT = new MakefileElementType("EXPORT");
   IElementType FILENAME = new MakefileElementType("FILENAME");
   IElementType FUNCTION = new MakefileElementType("FUNCTION");
+  IElementType FUNCTION_NAME = new MakefileElementType("FUNCTION_NAME");
   IElementType FUNCTION_PARAM = new MakefileElementType("FUNCTION_PARAM");
   IElementType INCLUDE = new MakefileElementType("INCLUDE");
   IElementType NORMAL_PREREQUISITES = new MakefileElementType("NORMAL_PREREQUISITES");
@@ -46,13 +47,8 @@ public interface MakefileTypes {
   IElementType DOUBLECOLON = new MakefileTokenType("::");
   IElementType EOL = new MakefileTokenType("EOL");
   IElementType FUNCTION_END = new MakefileTokenType(")");
-  IElementType FUNCTION_ERROR = new MakefileTokenType("$(error");
-  IElementType FUNCTION_INFO = new MakefileTokenType("$(info");
+  IElementType FUNCTION_NAME_TOKEN = new MakefileTokenType("function-name-token");
   IElementType FUNCTION_PARAM_TEXT = new MakefileTokenType("function-param-text");
-  IElementType FUNCTION_PATHSUBST = new MakefileTokenType("$(pathsubst");
-  IElementType FUNCTION_SHELL = new MakefileTokenType("$(shell");
-  IElementType FUNCTION_WARNING = new MakefileTokenType("$(warning");
-  IElementType FUNCTION_WILDCARD = new MakefileTokenType("$(wildcard");
   IElementType IDENTIFIER = new MakefileTokenType("identifier");
   IElementType KEYWORD_DEFINE = new MakefileTokenType("define");
   IElementType KEYWORD_ELSE = new MakefileTokenType("else");
@@ -112,6 +108,9 @@ public interface MakefileTypes {
       }
       else if (type == FUNCTION) {
         return new MakefileFunctionImpl(node);
+      }
+      else if (type == FUNCTION_NAME) {
+        return new MakefileFunctionNameImpl(node);
       }
       else if (type == FUNCTION_PARAM) {
         return new MakefileFunctionParamImpl(node);

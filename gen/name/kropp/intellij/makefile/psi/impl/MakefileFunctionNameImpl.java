@@ -11,31 +11,19 @@ import static name.kropp.intellij.makefile.psi.MakefileTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.makefile.psi.*;
 
-public class MakefileFunctionImpl extends ASTWrapperPsiElement implements MakefileFunction {
+public class MakefileFunctionNameImpl extends ASTWrapperPsiElement implements MakefileFunctionName {
 
-  public MakefileFunctionImpl(@NotNull ASTNode node) {
+  public MakefileFunctionNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MakefileVisitor visitor) {
-    visitor.visitFunction(this);
+    visitor.visitFunctionName(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof MakefileVisitor) accept((MakefileVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public MakefileFunctionName getFunctionName() {
-    return findNotNullChildByClass(MakefileFunctionName.class);
-  }
-
-  @Override
-  @NotNull
-  public List<MakefileFunctionParam> getFunctionParamList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MakefileFunctionParam.class);
   }
 
 }
